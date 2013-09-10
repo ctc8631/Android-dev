@@ -7,4 +7,6 @@
 <fullyQualifiedTypeName name="java.security.KeyStore.PrivateKeyEntry"/>
 <fullyQualifiedTypeName name="com.example.workdone.R.id"/>
 <fullyQualifiedTypeName name="java.security.PrivateKey"/>
+<fullyQualifiedTypeName name="com.example.workdone.R.layout"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
 </qualifiedTypeNameHistroy>

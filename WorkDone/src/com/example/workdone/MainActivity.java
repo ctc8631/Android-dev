@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.content.Intent;
 
 public class MainActivity extends Activity {
 
@@ -43,12 +44,18 @@ public class MainActivity extends Activity {
 
     private OnClickListener saveRecord = new OnClickListener() {
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			String title = text_title.getText().toString();
-			String cat = text_cat.getText().toString();
-			String date = event_date.getText().toString();
-			String time = event_time.getText().toString();
-			String descrip = text_descrip.getText().toString();
+
+			//Switch to save page
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, SaveActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("KEY_TITLE", text_title.getText().toString());
+			bundle.putString("KEY_CAT", text_cat.getText().toString());
+			bundle.putString("KEY_DATE", event_date.getText().toString());
+			bundle.putString("KEY_TIME", event_time.getText().toString());
+			bundle.putString("KEY_DESCRIP",text_descrip.getText().toString());
+			intent.putExtras(bundle);
+			startActivity(intent);
 
 		}
 	};

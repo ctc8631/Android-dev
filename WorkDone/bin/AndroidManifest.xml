@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity 
+            android:name="com.example.workdone.SaveActivity"
+            android:label="@string/save_title">
+            
+        </activity>
     </application>
 
 </manifest>
