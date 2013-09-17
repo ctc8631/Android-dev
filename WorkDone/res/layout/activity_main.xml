@@ -50,45 +50,21 @@
         android:inputType="textCapWords"
         />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/cat"
-        android:layout_marginTop="10dp"
-        android:text="@string/event_date"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <Button
+	    android:id="@+id/date"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:layout_below="@+id/cat"
+	    android:text="@string/event_date"
+	 	/>
 
-    <EditText
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/cat"
-        android:layout_below="@+id/cat"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="date" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/date"
-        android:layout_marginTop="10dp"
-        android:text="@string/event_time"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date"
-        android:layout_below="@+id/date"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="time" />
+	<Button
+	    android:id="@+id/time"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:layout_below="@+id/date"
+	    android:text="@string/event_time"
+	 	/>
 
     <TextView
         android:id="@+id/textView5"

@@ -1,23 +1,41 @@
 package com.example.workdone;
 
-import android.os.Bundle;
+
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.content.Intent;
+import android.widget.TimePicker;
+import android.widget.Toast;
+//import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
 	private Button button_save;
+	private Button button_date;
+	private Button button_time;
 	private EditText text_title;
 	private EditText text_cat;
 	private EditText event_date;
 	private EditText event_time;
 	private EditText text_descrip;
+	private int year, month, day, hr, min;
+	static final int ID_DATEPICKER = 0;
+	static final int ID_TIMEPICKER = 1;
 	
 	//	Call when the activity is first created
     @Override
@@ -31,15 +49,17 @@ public class MainActivity extends Activity {
     
     private void initViews(){
     	button_save = (Button)findViewById(R.id.save);
+    	button_date = (Button)findViewById(R.id.date);
+    	button_time = (Button)findViewById(R.id.time);
     	text_title = (EditText)findViewById(R.id.title);
     	text_cat = (EditText)findViewById(R.id.cat);
-    	event_date = (EditText)findViewById(R.id.date);
-    	event_time = (EditText)findViewById(R.id.time);
     	text_descrip = (EditText)findViewById(R.id.descrip);
     }
     
     private void setListener() {
 		button_save.setOnClickListener(saveRecord);
+		button_date.setOnClickListener(pickDate);
+		button_time.setOnClickListener(pickTime);
 	}
 
     private OnClickListener saveRecord = new OnClickListener() {
@@ -60,11 +80,122 @@ public class MainActivity extends Activity {
 		}
 	};
 
+
+	private Button.OnClickListener pickDate = new Button.OnClickListener(){
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			final Calendar c = Calendar.getInstance();
+			year = c.get(Calendar.YEAR);
+			month = c.get(Calendar.MONTH);
+			day = c.get(Calendar.DAY_OF_MONTH);
+			showDialog(ID_DATEPICKER);
+		}
+	};	
+
+    private Button.OnClickListener pickTime = new Button.OnClickListener(){
+
+    	@SuppressWarnings("deprecation")
+		@Override
+    	public void onClick(View v) {
+			// TODO Auto-generated method stub
+			final Calendar c = Calendar.getInstance();
+			hr = c.get(Calendar.HOUR_OF_DAY);
+			min = c.get(Calendar.MINUTE);
+			showDialog(ID_TIMEPICKER);
+    	}
+    };
+    
+    @Override
+    protected Dialog onCreateDialog(int id) {
+    	// TODO Auto-generated method stub
+    	Log.e("aaa",(String)("id:"+id) );
+    	Toast.makeText(MainActivity.this, "HELLO", Toast.LENGTH_SHORT).show();
+    	switch(id){
+    	case ID_DATEPICKER:
+    		Toast.makeText(MainActivity.this, 
+    				"- onCreateDialog(ID_DATEPICKER) -", 
+    				Toast.LENGTH_LONG).show();
+    		return new DatePickerDialog(this,
+    				myDateSetListener,
+    				year, month, day);
+    	case ID_TIMEPICKER:
+    		Toast.makeText(MainActivity.this, 
+    				"- onCreateDialog(ID_TIMEPICKER) -", 
+    				Toast.LENGTH_LONG).show();
+    		return new TimePickerDialog(this,
+    				myTimeSetListener,
+    				hr, min, false);
+    		
+    	default:
+    		return null;
+
+    	}
+    	
+    }
+    
+    
+    private DatePickerDialog.OnDateSetListener myDateSetListener = new DatePickerDialog.OnDateSetListener(){
+
+    	@Override
+    	public void onDateSet(DatePicker view, int year, 
+    			int monthOfYear, int dayOfMonth) {
+    		// TODO Auto-generated method stub
+    		String date = "Year: " + String.valueOf(year) + "\n"
+    				+ "Month: " + String.valueOf(monthOfYear+1) + "\n"
+    				+ "Day: " + String.valueOf(dayOfMonth);
+    		Toast.makeText(MainActivity.this, date, 
+    				Toast.LENGTH_LONG).show();
+    	}
+    };
+
+    private TimePickerDialog.OnTimeSetListener myTimeSetListener = new TimePickerDialog.OnTimeSetListener(){
+
+    	@Override
+    	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    		// TODO Auto-generated method stub
+    		String time = "Hour: " + String.valueOf(hourOfDay) + "\n"
+    				+ "Minute: " + String.valueOf(minute);
+    		Toast.makeText(MainActivity.this, time, 
+    				Toast.LENGTH_LONG).show();
+    	}
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case R.id.action_about:
+			openOptionsDialog();
+			break;
+		case R.id.action_close:
+			finish();
+			break;
+
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void openOptionsDialog(){
+		AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+		dialog.setTitle(R.string.about_title);
+		dialog.setMessage(R.string.about_msg);
+		dialog.setPositiveButton(android.R.string.ok, 
+			new android.content.DialogInterface.OnClickListener(){
+				public void onClick(
+					DialogInterface dialogInterface, int i){}
+		});
+		dialog.show();
+	};
+
     
 }

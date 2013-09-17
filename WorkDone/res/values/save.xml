@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="save_title">Work Done Saved</string>
+    <string name="save_back">Back to Main</string>
+</resources>
